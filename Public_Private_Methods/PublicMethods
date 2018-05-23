@@ -1,0 +1,30 @@
+/* An public method without this scope and with this scope in some variable */
+
+var pizza = function (){
+  crust = 'thin';
+  this.topping = 3;
+  this.getCrust = function () {
+    return crust;
+  }
+}
+
+// Input 1
+var pizza1 = new pizza;
+pizza1.crust;
+
+output:
+  undefined.
+
+// Input 2
+var pizza1 = new pizza;
+pizza1.crust='pan';
+
+output:
+pan
+
+// Input 3
+var pizza1 = new pizza;
+pizza1.topping;
+
+output:
+  3.

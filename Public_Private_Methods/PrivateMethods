@@ -1,0 +1,139 @@
+/*  How to create a private properties in objects/class/methods */
+
+
+var pizza = function (){
+  var crust = 'thin';  // any variable created by 'VAR' keyword will be a private as it is a block scope.
+  this.topping = 3;
+  this.getCrust = function () {
+    return crust;
+  }
+}
+
+// Input 1
+var pizza1 = new pizza;
+pizza1.crust;
+
+output:
+  undefined.
+
+console.dir(pizza1);
+output:
+    will show only topping, getCrust. (cannot see crust in it)
+
+--------------------------------------------------------------------------------------------------------
+
+/*  How to create a private methods  */
+
+
+var pizza = function (){
+  var crust = 'thin';
+  this.topping = 3;
+  var getCrust = function () {  // any variable created by 'VAR' keyword will be a private as it is a block scope.
+    return crust;
+  }
+}
+
+// Input 1
+var pizza1 = new pizza;
+pizza1.getCrust();
+
+output:
+  undefined.
+
+console.dir(pizza1);
+output:
+    will show only topping(cannot see crust and getCrust in it)
+
+
+------------------------------------------------------------------------------------------------
+
+/* Accessing private methods and properties outside the class */
+
+Explanation: In order to access the private methods outside of the class.
+    1. should create a private empty object (eg: var emptyObj= {}).
+    2. Next we should create public methods/properties for the private object, whose names are same as the class private methods/properties(eg: emptyObj.getCrust;)
+    3. next we should assign the class private function/properties to the object public method/properties (eg: emptyObj.getCrust = getCrust; )
+
+Example 1:
+
+var pizza = function (){
+  var crust = 'thin';
+  this.topping = 3;
+  var getCrust = function () {
+    return crust;
+  }
+
+  var emptyObj = {};
+  emptyObj.getCrust = getCrust;
+  return emptyObj
+}
+
+
+// Input
+var pizza1 = new pizza;
+pizza1.getCrust();
+
+output:
+  thin.
+
+Example 2:
+
+var pizza = function (){
+  var crust = 'thin';
+  this.topping = 3;
+  var getCrust = function () {
+    return crust;
+  }
+
+  var emptyObj = {};
+  emptyObj.getCrust = getCrust;
+  emptyObj.crust = crust;
+  return emptyObj
+}
+
+
+// Input
+var pizza1 = new pizza;
+pizza1.crust;
+
+output:
+  thin.
+
+
+
+Example 3:
+
+var pizza = function (){
+  var crust = 'thin';
+  var topping = 3;
+  var getCrust = function () {
+    return crust;
+  }
+
+  var getToppings = function () {
+    return topping;
+  }
+
+  var emptyObj = {};
+  emptyObj.getCrust = getCrust;
+  emptyObj.getToppings = getToppings;
+  emptyObj.crust = crust;
+  return emptyObj
+}
+
+
+// Input
+var pizza1 = new pizza;
+pizza1.crust;
+
+output:
+  thin.
+
+// Input
+var pizza1 = new pizza;
+pizza1.getToppings();
+
+output:
+  3.
+
+---------------------------------------------------------------------
