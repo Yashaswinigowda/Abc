@@ -41,21 +41,27 @@ console.log(dateMIli[last].key);
 
 APPROACH 2:
 
-// this approach is partial done
-
-var myArr = ["2018-07-07", "2015-06-01", "2009-08-30"];
-var miLi = [];
-for (var i =0; i<myArr.length; i++){
-  miLi.push(new Date(myArr[i]).getTime());
+function minMaxDate(dateVals){
+	var miLi = [];
+  var maxMilliSeconds;
+	for (var i =0; i<dateVals.length; i++){
+  	miLi.push(new Date(dateVals[i]).getTime());
+	}
+   miLi.sort();
+   maxMilliSeconds = miLi.length -1;
+   console.log(maxMilliSeconds);
+   const leastDate = miliSecondToDate(miLi[0]);
+   const maxDate = miliSecondToDate(miLi [miLi.length -1]);
+   return ([leastDate, maxDate]);
 }
 
-miLi.sort();
+function miliSecondToDate(miliSecondVal){
+	var date = new Date(miliSecondVal).toISOString();
+  var dateFormate = date.split('T');  // as we required it back in 'yyyy-mm-dd' formate
+  return dateFormate[0];
+}
 
-var date = new Date(1402790400000);
-console.log(date.toString("yyyy-MM-dd"));
-console.log(date.toLocaleDateString());
+var myArr = ["2018-07-07", "2015-06-01", "2009-08-30"];
 
-/*
-var date = new Date(1402790400000);
-console.log("date: ",date);
-console.log(date.toString("yyyy-MM-dd")); */
+var values = minMaxDate(myArr);
+console.log(values);
