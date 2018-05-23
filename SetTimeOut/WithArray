@@ -1,0 +1,34 @@
+
+/* Probelem with setTimeout Function
+    output: undefined 3 times.
+      here we get undefined because the 'i' value would have incremented to 3,
+      but when in console log we find for array[i] i.e [3] which is array out of bound.
+      hence we get undifined.
+*/
+
+function aa (){
+var arr=[1,2,3];
+for(var i=0;i< aa.length; i++){
+		setTimeout (function(){
+  	console.log(arr[i]);
+  },1000);
+ }
+}
+
+aa();
+
+/* Approach 1:
+      Converting the keyword top let.
+      And can use all other approach which is in withforloop
+*/
+
+function aa (){
+var aa=[1,2,3];
+for(let i=0;i< aa.length; i++){
+		setTimeout (function(){
+  	console.log(aa[i]);
+  },1000);
+ }
+}
+
+aa();

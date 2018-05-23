@@ -1,0 +1,91 @@
+
+
+
+/* Probelem with setTimeout Function
+    output: 5,5,5,5,5
+*/
+
+function aa (){
+  for(var i=0;i<5;i++){
+    setTimeout(function(){
+      console.log(i);
+    },1000);
+  }
+}
+aa();
+
+
+/* Approaches to resolve this behaviors and get 1,2,3,4 as a output*/
+
+
+/* Approach 1:
+    by converting var keyword to let.
+    Let -> because every time in render it binds a variable as a new object.
+    this helps to get our result. (as binding function inside render rather then inside constuctor)
+*/
+
+function aa (){
+  for(let i=0;i<5;i++){
+    setTimeout(function(){
+      console.log(i);
+    },1000);
+  }
+}
+aa();
+
+
+/* Approach 2:*
+    by giving it to another function.
+    As the stack creates the new object, and we are making call to another Function
+    this gives us some time to call back (returns a value).
+    this helps to resolve.
+*/
+
+function setFun (){
+  for(let i=0;i<5;i++){
+    anotherFun(i)
+  }
+}
+setFun();
+
+function anotherFun(i){
+	setTimeout(function(){
+      console.log(i);
+    },1000);
+}
+
+
+/* Approach 3:
+    by passing an argument to the setTimeOut function itself.
+    As setTimeout is also a different function, and we are making call to another Function
+    this gives us some time to call back (returns a value).
+    this helps to resolve.
+*/
+
+function aa (){
+for(var i=1;i<5;i++){
+	setTimeout (function(x){
+  	console.log(i);
+  }(i),1000);
+ }
+}
+aa();
+
+
+
+/* Approach 4:
+  by passing it to immediate invoked function (IIFE)
+  this also same calling like another function but using IIFE
+*/
+
+function aa (){
+for(var i=1;i<5;i++){
+(function a(x) {
+		setTimeout (function(){
+  	console.log(x);
+  },1000);
+})(i);
+ }
+}
+
+aa();

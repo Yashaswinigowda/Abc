@@ -1,0 +1,14 @@
+They all attach this into function (or object) and the difference is in the function invocation (see below).
+
+CALL:
+attaches this into function and executes the function immediately:
+
+var person = {
+  name: "James Smith",
+  hello: function(thing) {
+    console.log(this.name + " says hello " + thing);
+  }
+}
+
+person.hello("world");  // output: "James Smith says hello world"
+person.hello.call({ name: "Jim Smith" }, "world"); // output: "Jim Smith says hello world"

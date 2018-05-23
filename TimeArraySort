@@ -1,0 +1,61 @@
+
+/*
+  given an time array
+        myArray = ["2018-05-10","2017-03-11","2016-03-14","2015-04-20","2014-06-15"];
+  in this give the highest date and lowest date value.
+*/
+
+APPROACH 1:
+
+ /* Converting it into milliseconds and
+    creating it in a array of object formate
+    so that can easy sort and written the string
+ */
+
+var myArray = ["2018-05-10","2017-03-11","2016-03-14","2015-04-20","2014-06-15"];
+var dateMIli = [];
+for(var i=0;i< myArray.length; i++){
+	var dateString = new Date(myArray[i]).getTime();
+  dateMIli.push({
+  		key : [myArray[i]],
+      value : dateString
+     });
+}
+
+/* Comparing the given two object1
+ * it is comparing with milliseconds of time
+*/
+
+function compFun(object1, object2){
+	if(object1.value > object2.value)
+   	return true;
+   return false;
+};
+
+var last = dateMIli.length - 1;
+dateMIli.sort(compFun);
+console.log(dateMIli[0].key);
+console.log(dateMIli[last].key);
+
+
+
+APPROACH 2:
+
+// this approach is partial done
+
+var myArr = ["2018-07-07", "2015-06-01", "2009-08-30"];
+var miLi = [];
+for (var i =0; i<myArr.length; i++){
+  miLi.push(new Date(myArr[i]).getTime());
+}
+
+miLi.sort();
+
+var date = new Date(1402790400000);
+console.log(date.toString("yyyy-MM-dd"));
+console.log(date.toLocaleDateString());
+
+/*
+var date = new Date(1402790400000);
+console.log("date: ",date);
+console.log(date.toString("yyyy-MM-dd")); */
