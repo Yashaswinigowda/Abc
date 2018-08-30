@@ -1,0 +1,43 @@
+
+/* URL to Refer: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions*/
+As stated previously, arrow function expressions are best suited for non-method functions. Let's see what happens when we try to use them as methods
+
+var object1={
+   b : 10,
+   a : function(){
+    console.log(this.b);
+  }
+};
+object1.a();
+
+ OutPut:
+ object2.a();  // prints 10
+ object2.b;    // // prints 10
+
+Example 2:
+var object2={
+   this.b : 10,
+   a: ()=>{
+    console.log(this.b);
+  }
+};
+
+Output:
+object2.a();  // prints undefined, Window {...} (or the global object)
+object2.b;    // // prints 10, Object {...}
+
+
+Dont's in AnonymousFunctions:
+
+
+1. Arrow functions cannot be used as constructors and will throw an error when used with new.
+
+var Foo = () => {};
+var foo = new Foo(); // TypeError: Foo is not a constructor
+
+
+2. Use of prototype property
+Arrow functions do not have a prototype property.
+
+var Foo = () => {};
+console.log(Foo.prototype); // undefined

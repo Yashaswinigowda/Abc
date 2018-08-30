@@ -1,0 +1,147 @@
+
+Approach 1:  (link: http://rvbsanjose.github.io/finding-the-longest-palindrome/)
+function solution(S) {
+    let longStr = longestPalindrome(S);
+  console.log(longStr);
+    let isPrimeValue = isPrime(longStr.length);
+    return isPrimeValue;
+}
+
+/* Helps to find the longest palindrome */
+var longestPalindrome = function (string) {
+ var longest = '';
+ for (var i = 0; i < string.length; i++) {
+  // quick reference to the current letter in the string
+  var currentLetter = string[i];
+  // find the last occurance of the letter in the string
+  var firstOccurance;
+  for (var j = i + 1; j < string.length; j++) {
+   if (currentLetter === string[j]) {
+    // we found an occurance that matches the current letter
+    firstOccurance = j;
+    // generate the substring to match
+    var subString = string.slice(i, firstOccurance + 1);
+    // check if the substring is a palindrom and if it is longer then longest
+    if (subString.length > longest.length &&
+      subString.toLowerCase() === subString.split('').reverse().join('').toLowerCase()) {
+       longest = subString;
+    }
+   }
+  }
+ }
+ // return the longest palindrome
+ return longest;
+};
+
+/* Helps to find the whether given number is prime or not */
+
+function isPrime(longStr) {
+ for(var i = 2; i < longStr; i++)
+  if(longStr % i === 0) return "NO";
+ return "YES";
+}
+
+console.log(solution("random12321random"));
+
+
+Approach 2: (Link: https://codepen.io/anatas/pen/PZeNQK)
+function longestPalindrome(str){
+  var arr = str.split("");
+  var endArr = [];
+
+  for(var i = 0; i < arr.length; i++){
+    var temp = "";
+    temp = arr[i];
+    for(var j = i + 1; j < arr.length; j++){
+      temp += arr[j];
+      if(temp.length > 2 && temp === temp.split("").reverse().join("")){
+        endArr.push(temp);
+      }
+    }
+  }
+
+  var count = 0;
+  var longestPalindrome = "";
+  for(var i = 0; i < endArr.length; i++){
+    if(count >= endArr[i].length){
+      longestPalindrome = endArr[i-1];
+    }
+    else{
+      count = endArr[i].length;
+    }
+  }
+  console.log(endArr);
+  console.log(longestPalindrome);
+  return longestPalindrome;
+}
+
+Approach 3: Given a string how many palindrome words can be made in that and the highest length in that
+
+
+longestPalindrome.js
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var longestPalindrome = function(s) {
+    var result = 0;
+
+    var hash = {};
+    for (var i=0; i<s.length; i++) {
+        // Build a count of the letters.
+        hash[s[i]] = hash[s[i]] ? hash[s[i]] + 1 : 1;
+    }
+
+    if (Object.keys(hash).length === 1) {
+        // All same letters, just use the count.
+        result = hash[Object.keys(hash)[0]];
+    }
+    else {
+        // Go through the even-numbered letter counts and balance out the letters for the longest palindrome.
+        // If a letter has an odd count, we'll tack on +1 to the result.
+        var oddCount = false;
+        for (var i=0; i<Object.keys(hash).length; i++) {
+            var letter = Object.keys(hash)[i];
+            var count = hash[Object.keys(hash)[i]];
+
+            if (count % 2 === 0) {
+                // We have an even count letter, assume we use all letters.
+                result += count;
+            }
+            else if (count > 2) {
+                // We have an odd letter count, such as 3. Use all of the letters, but one. Note that we can tack on +1 for the odd letter remaining.
+                result += count - 1;
+                oddCount = true;
+            }
+            else {
+                // We have at least 1 odd numbered letter.
+                oddCount = true;
+            }
+        }
+
+        if (oddCount && result % 2 === 0) {
+            // We have a balanced palindrome, so we can include one more letter in the middle.
+            result++;
+        }
+    }
+
+    return result;
+};
+ zexample.txt
+Given a string which consists of lowercase or uppercase letters, find the length of the longest palindromes that can be built with those letters.
+
+This is case sensitive, for example "Aa" is not considered a palindrome here.
+
+Note:
+Assume the length of given string will not exceed 1,010.
+
+Example:
+
+Input:
+"abccccdd"
+
+Output:
+7
+
+Explanation:
+One longest palindrome that can be built is "dccaccd", whose length is 7

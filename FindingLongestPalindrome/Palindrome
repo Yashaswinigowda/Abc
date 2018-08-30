@@ -1,0 +1,9 @@
+/* Given string is palindrome or not */
+
+function palindromeFunc(f){
+if(f.toLowerCase() === f.split('').reverse().join(''))
+  return true;
+return false;
+}
+
+palindromeFunc("abcda");
