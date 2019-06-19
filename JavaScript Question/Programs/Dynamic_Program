@@ -1,0 +1,34 @@
+1. How do you recursively remove adjacent characters in a string?
+    If string = "abcdd";
+    Then output = "abc"
+
+    If string = "abbcccdddd";
+    Then output = "abc";
+    
+    if string = "azxxzy";
+    Then output = "ay";
+    
+    
+  function RemoveConcurrentChars(arr) {
+  var filter = []; // Output array object
+  for (var i = 0; i < arr.length; i++) {
+    var len = filter.length; // Get length of output array object.
+    var lastElmentOfArray = filter[len - 1]; // Get the last element of output object.
+    // For the first item, pushing the item to output object.
+    if (i === 0)
+      filter.push(arr[i]);
+    if (i !== 0) {
+      // If the current item of array ISEQUAL to last item of output object
+      // Then delete the item from output object
+      if (arr[i] === lastElmentOfArray) {
+        filter.splice(len - 1, 1);
+      } else {
+        filter.push(arr[i]);
+      }
+    }
+  }
+  return filter.join("");
+};
+
+console.log(RemoveConcurrentChars(str))
+
